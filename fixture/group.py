@@ -35,6 +35,14 @@ class GroupHelper:
         self.group_delete.wait_not("visible")
         self.group_editor.close
 
+    def remove_group_with_contact(self, group):
+        self.open_group_editor()
+        self.open_group_delete(group)
+        self.group_delete.window(auto_id="uxDeleteAllRadioButton").click()
+        self.group_delete.window(auto_id="uxOKAddressButton").click()
+        self.group_delete.wait_not("visible")
+        self.group_editor.close
+
     def open_group_editor(self):
         self.app.main_window.window(auto_id="groupButton").click()
         self.group_editor = self.app.application.window(title="Group editor")
