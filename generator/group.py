@@ -9,19 +9,19 @@ import getopt
 project_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "cg:fg:", ["count of groups", "file for group data"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["count of groups", "file for group data"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
-cg = 7
-fg = "groups.xlsx"
+n = 7
+f = "groups.xlsx"
 
 for o, a in opts:
-    if o == "-cg":
-        cg = int(a)
-    elif o == "-fg":
-        fg = a
+    if o == "-n":
+        n = int(a)
+    elif o == "-f":
+        f = a
 
 
 def random_string(max_length):
@@ -32,8 +32,8 @@ def random_string(max_length):
 xl = CreateObject("Excel.Application")
 xl.Visible = 1
 wb = xl.Workbooks.Add()
-for i in range(cg):
+for i in range(n):
     xl.Range["A%s" % (i+1)].Value[()] = random_string(10)
 xl.DisplayAlerts = 0
-wb.SaveAs(os.path.join(project_dir, fg))
+wb.SaveAs(os.path.join(project_dir, f))
 xl.Quit()
