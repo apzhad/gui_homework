@@ -31,6 +31,16 @@ class GroupHelper:
         self.delete_choise.wait_not("visible")
         self.group_editor.close
 
+    def cancel_delete_group(self, group):
+        self.open_group_editor()
+        editor_tree = self.group_editor.window(auto_id="uxAddressTreeView")
+        editor_root = editor_tree.tree_root()
+        editor_tree.GetItem([editor_root.text(), group]).click()
+        self.open_delete_choise()
+        self.delete_choise.window(auto_id="uxCancelAddressButton").click()
+        self.delete_choise.wait_not("visible")
+        self.group_editor.close
+
     def open_group_editor(self):
         self.app.main_window.window(auto_id="groupButton").click()
         self.group_editor = self.app.application.window(title="Group editor")
