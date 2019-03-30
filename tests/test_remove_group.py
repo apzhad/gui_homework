@@ -6,7 +6,10 @@ def test_remove_group(app):
         app.groups.add_new_group("group name")
     old_list = app.groups.get_group_list()
     group = random.choice(old_list)
-    app.groups.remove_group(group)
+    move_to_group = random.choice(old_list)
+    while move_to_group == group:
+        move_to_group = random.choice(old_list)
+    app.groups.remove_group(group, move_to_group)
     new_list = app.groups.get_group_list()
     old_list.remove(group)
     assert sorted(old_list) == sorted(new_list)
