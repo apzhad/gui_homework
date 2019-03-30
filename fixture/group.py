@@ -21,24 +21,18 @@ class GroupHelper:
 
     def remove_group(self, group, to_group):
         self.open_group_editor()
-        editor_tree = self.group_editor.window(auto_id="uxAddressTreeView")
-        editor_root = editor_tree.tree_root()
-        editor_tree.GetItem([editor_root.text(), group]).click()
-        self.open_delete_choise()
-        del_tree = self.delete_choise.window(auto_id="uxTreeView")
+        self.open_group_delete(group)
+        del_tree = self.group_delete.window(auto_id="uxTreeView")
         del_tree.GetItem([to_group]).click()
-        self.delete_choise.window(auto_id="uxOKAddressButton").click()
-        self.delete_choise.wait_not("visible")
+        self.group_delete.window(auto_id="uxOKAddressButton").click()
+        self.group_delete.wait_not("visible")
         self.group_editor.close
 
     def cancel_delete_group(self, group):
         self.open_group_editor()
-        editor_tree = self.group_editor.window(auto_id="uxAddressTreeView")
-        editor_root = editor_tree.tree_root()
-        editor_tree.GetItem([editor_root.text(), group]).click()
-        self.open_delete_choise()
-        self.delete_choise.window(auto_id="uxCancelAddressButton").click()
-        self.delete_choise.wait_not("visible")
+        self.open_group_delete(group)
+        self.group_delete.window(auto_id="uxCancelAddressButton").click()
+        self.group_delete.wait_not("visible")
         self.group_editor.close
 
     def open_group_editor(self):
@@ -49,7 +43,10 @@ class GroupHelper:
     def close_group_editor(self):
         self.group_editor.close()
 
-    def open_delete_choise(self):
+    def open_group_delete(self, group):
+        editor_tree = self.group_editor.window(auto_id="uxAddressTreeView")
+        editor_root = editor_tree.tree_root()
+        editor_tree.GetItem([editor_root.text(), group]).click()
         self.group_editor.window(auto_id="uxDeleteAddressButton").click()
-        self.delete_choise = self.app.application.window(title="Delete group")
-        self.delete_choise.wait("visible")
+        self.group_delete = self.app.application.window(title="Delete group")
+        self.group_delete.wait("visible")
