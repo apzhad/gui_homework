@@ -30,7 +30,6 @@ def random_string(max_length):
 
 
 xl = CreateObject("Excel.Application")
-xl.Visible = 1
 wb = xl.Workbooks.Add()
 for i in range(n):
     xl.Range["A%s" % (i+1)].Value[()] = random_string(10)
